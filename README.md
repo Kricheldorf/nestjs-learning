@@ -5,7 +5,13 @@
 ## DB setup
 
 ```bash
-$ docker compose -f ./config/docker-compose.yml --project-directory . --env-file config/.env up -d
+$ yarn run db:up
+```
+
+## Migrations
+
+```bash
+$ yarn run migration:run
 ```
 
 ## Installation

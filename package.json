@@ -19,9 +19,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "migration:run": "yarn run typeorm migration:run -- -d src/data_source.ts",
-    "docker:up": "docker compose -f ./config/docker-compose.yml --project-directory . --env-file config/.env up -d",
-    "docker:down": "docker compose -f ./config/docker-compose.yml --project-directory . --env-file config/.env down"
+    "migration:run": "yarn run typeorm migration:run -d src/data_source.ts",
+    "db:up": "docker compose -f ./config/docker-compose.yml --project-directory . --env-file config/.env up -d",
+    "db:down": "docker compose -f ./config/docker-compose.yml --project-directory . --env-file config/.env down"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
