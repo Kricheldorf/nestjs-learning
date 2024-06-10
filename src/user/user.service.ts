@@ -24,8 +24,13 @@ export class UserService {
     return this.usersRepository.findOneBy({ id });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return this.usersRepository.update(id, updateUserDto);
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<User | null> {
+    const updateResponse = await this.usersRepository.update(id, updateUserDto);
+    if (updateResponse.affected > 0) {
+      return this.usersRepository.findOneBy({ id });
+    }
+
+    return null;
   }
 
   async remove(id: number): Promise<void> {
