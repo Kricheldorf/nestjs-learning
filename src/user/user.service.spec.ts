@@ -3,11 +3,12 @@ import { UserService } from './user.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { MockUserRepository } from './mocks/mock-user-repository';
+import { CreateUserDto } from './dto/create-user.dto';
 
 describe('UserService', () => {
   let service: UserService;
   let repository: MockUserRepository;
-  const mockUserWithoutId = {
+  const mockUserWithoutId: CreateUserDto = {
     first_name: 'John',
     last_name: 'Doe',
     email: '',
