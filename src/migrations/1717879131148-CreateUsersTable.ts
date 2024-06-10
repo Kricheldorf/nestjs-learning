@@ -5,11 +5,11 @@ export class CreateUsersTable1717879131148 implements MigrationInterface {
     await queryRunner.query(`
         CREATE TABLE "user"
         (
-            id        SERIAL PRIMARY KEY,
-            email     VARCHAR(255) NOT NULL,
-            firstName VARCHAR(255) NOT NULL,
-            lastName  VARCHAR(255) NOT NULL,
-            avatar    VARCHAR(255)
+            id         SERIAL PRIMARY KEY,
+            email      VARCHAR(255) NOT NULL,
+            first_name VARCHAR(255) NOT NULL,
+            last_name  VARCHAR(255) NOT NULL,
+            avatar     VARCHAR(255)
         );
     `);
   }

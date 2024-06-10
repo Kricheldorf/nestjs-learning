@@ -1,6 +1,7 @@
 export class MockUserRepository {
   find = jest.fn();
-  findOne = jest.fn();
+  findOneBy = jest.fn();
   save = jest.fn();
-  remove = jest.fn();
+  update = jest.fn();
+  delete = jest.fn();
 }

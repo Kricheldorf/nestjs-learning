@@ -4,7 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { dataSourceOptions } from './data_source';
+import { dataSourceOptions } from './data-source';
 
 @Module({
   imports: [
