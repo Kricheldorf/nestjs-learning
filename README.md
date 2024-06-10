@@ -29,7 +29,7 @@ TODOs:
 $ yarn run db up -d
 ```
 
-* To start the test and dev containers, run the following command:
+* To stop the test and dev containers, run the following command:
 
 ```bash
 $ yarn run db down
