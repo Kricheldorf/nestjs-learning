@@ -17,16 +17,27 @@ Things setup after scaffolding the project:
 
 TODOs:
 
-* Improve e2e tests
 * Add more features to the API for practice
 
 ## DB setup
 
+* DB: Postgres. I'm using a docker container to run the database.
+* You need to have Docker installed on your machine to run the database container.
+* To start the test and dev containers, run the following command:
+
 ```bash
-$ yarn run db:up
+$ yarn run db up -d
+```
+
+* To start the test and dev containers, run the following command:
+
+```bash
+$ yarn run db down
 ```
 
 ## Migrations
+
+* After setting up the database, you need to run the migrations.
 
 ```bash
 $ yarn run migration:run
