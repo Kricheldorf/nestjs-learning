@@ -1,11 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { NotFoundException } from '@nestjs/common';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { HttpService } from '@nestjs/axios';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { MockUserRepository } from './mocks/mock-user-repository';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UsersFetcherService } from '../users-fetcher/users-fetcher.service';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -15,16 +17,24 @@ describe('UserController', () => {
     last_name: 'Doe',
     email: 'john.doe@example.com',
     avatar: null,
+    external_id: null,
   };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
       providers: [
+        UsersFetcherService,
         UserService,
         {
           provide: getRepositoryToken(User),
           useClass: MockUserRepository,
+        },
+        {
+          provide: HttpService,
+          useValue: {
+            get: jest.fn(),
+          },
         },
       ],
     }).compile();

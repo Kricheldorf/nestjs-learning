@@ -1,9 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { HttpService } from '@nestjs/axios';
 import { User } from './entities/user.entity';
 import { MockUserRepository } from './mocks/mock-user-repository';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UsersFetcherService } from '../users-fetcher/users-fetcher.service';
 
 describe('UserService', () => {
   let service: UserService;
@@ -19,10 +21,17 @@ describe('UserService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
+        UsersFetcherService,
         UserService,
         {
           provide: getRepositoryToken(User),
           useClass: MockUserRepository,
+        },
+        {
+          provide: HttpService,
+          useValue: {
+            get: jest.fn(),
+          },
         },
       ],
     }).compile();

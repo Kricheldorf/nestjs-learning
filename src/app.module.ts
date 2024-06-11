@@ -1,16 +1,18 @@
+import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
+import { dataSourceOptions } from './data-source';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { dataSourceOptions } from './data-source';
+import { UsersFetcherModule } from './users-fetcher/users-fetcher.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: `./config/.env` }),
     TypeOrmModule.forRoot(dataSourceOptions),
     UserModule,
+    UsersFetcherModule,
   ],
   controllers: [AppController],
   providers: [AppService],
