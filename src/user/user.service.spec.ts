@@ -10,6 +10,7 @@ import { UsersFetcherService } from '../users-fetcher/users-fetcher.service';
 describe('UserService', () => {
   let service: UserService;
   let repository: MockUserRepository;
+  let usersFetcherService: UsersFetcherService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -31,6 +32,7 @@ describe('UserService', () => {
 
     service = module.get<UserService>(UserService);
     repository = module.get<MockUserRepository>(getRepositoryToken(User));
+    usersFetcherService = module.get<UsersFetcherService>(UsersFetcherService);
   });
 
   it('should be defined', () => {
@@ -106,6 +108,50 @@ describe('UserService', () => {
       expect(repository.update).toHaveBeenCalledWith(1, updatedMockUser);
       expect(repository.findOneBy).not.toHaveBeenCalled();
       expect(user).toEqual(null);
+    });
+
+    it('should update existing users and create new users from external domain', async () => {
+      const mockUsersList = [
+        { ...mockUserWithoutId, id: 1, external_id: 1 },
+        { ...mockUserWithoutId, id: 2, external_id: 2 },
+      ];
+      const mockExistingUser = {
+        ...mockUserWithoutId,
+        id: 1,
+        external_id: 1,
+      };
+      const mockNewUser = {
+        ...mockUserWithoutId,
+        id: 2,
+        external_id: 2,
+      };
+      usersFetcherService.fetchAllUsers = jest
+        .fn()
+        .mockReturnValue(mockUsersList);
+      repository.findOneBy = jest.fn().mockImplementation((query) => {
+        if (query.external_id === mockExistingUser.external_id) {
+          return mockExistingUser;
+        }
+        return null;
+      });
+
+      await service.updateUsersFromDomain();
+
+      expect(usersFetcherService.fetchAllUsers).toHaveBeenCalledTimes(1);
+      expect(repository.findOneBy).toHaveBeenCalledTimes(mockUsersList.length);
+      expect(repository.findOneBy).toHaveBeenCalledWith({
+        external_id: mockExistingUser.external_id,
+      });
+      expect(repository.findOneBy).toHaveBeenCalledWith({
+        external_id: mockNewUser.external_id,
+      });
+      expect(repository.update).toHaveBeenCalledTimes(1);
+      expect(repository.update).toHaveBeenCalledWith(
+        mockExistingUser.id,
+        mockExistingUser,
+      );
+      expect(repository.save).toHaveBeenCalledTimes(1);
+      expect(repository.save).toHaveBeenCalledWith(mockNewUser);
     });
   });
 });
