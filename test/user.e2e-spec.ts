@@ -48,6 +48,7 @@ describe('UserController (e2e)', () => {
       .expect(201)
       .expect({
         id: 1,
+        external_id: null,
         email: 'john@email.com',
         first_name: 'John',
         last_name: 'Doe',
@@ -62,6 +63,7 @@ describe('UserController (e2e)', () => {
       .expect([
         {
           id: 1,
+          external_id: null,
           email: 'john@email.com',
           first_name: 'John',
           last_name: 'Doe',
@@ -73,6 +75,7 @@ describe('UserController (e2e)', () => {
   it('/users/1 (GET)', () => {
     return request(app.getHttpServer()).get('/users/1').expect(200).expect({
       id: 1,
+      external_id: null,
       email: 'john@email.com',
       first_name: 'John',
       last_name: 'Doe',
@@ -89,6 +92,7 @@ describe('UserController (e2e)', () => {
       .expect(200)
       .expect({
         id: 1,
+        external_id: null,
         email: 'john@email.com',
         first_name: 'John',
         last_name: 'Doe',

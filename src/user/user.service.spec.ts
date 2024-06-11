@@ -4,19 +4,12 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { HttpService } from '@nestjs/axios';
 import { User } from './entities/user.entity';
 import { MockUserRepository } from './mocks/mock-user-repository';
-import { CreateUserDto } from './dto/create-user.dto';
+import { mockUserWithoutId } from './mocks/mock-user-without-id';
 import { UsersFetcherService } from '../users-fetcher/users-fetcher.service';
 
 describe('UserService', () => {
   let service: UserService;
   let repository: MockUserRepository;
-  const mockUserWithoutId: CreateUserDto = {
-    first_name: 'John',
-    last_name: 'Doe',
-    email: '',
-    avatar: null,
-    external_id: null,
-  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({

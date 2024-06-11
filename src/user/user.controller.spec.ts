@@ -6,19 +6,12 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { User } from './entities/user.entity';
 import { MockUserRepository } from './mocks/mock-user-repository';
-import { CreateUserDto } from './dto/create-user.dto';
+import { mockUserWithoutId } from './mocks/mock-user-without-id';
 import { UsersFetcherService } from '../users-fetcher/users-fetcher.service';
 
 describe('UserController', () => {
   let controller: UserController;
   let service: UserService;
-  const mockUserWithoutId: CreateUserDto = {
-    first_name: 'John',
-    last_name: 'Doe',
-    email: 'john.doe@example.com',
-    avatar: null,
-    external_id: null,
-  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
