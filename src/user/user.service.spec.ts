@@ -13,6 +13,7 @@ describe('UserService', () => {
     last_name: 'Doe',
     email: '',
     avatar: null,
+    external_id: null,
   };
 
   beforeEach(async () => {

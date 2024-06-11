@@ -57,4 +57,17 @@ describe('CreateUserDto', () => {
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].property).toBe('first_name');
   });
+
+  it('should fail if external_id is not empty', async () => {
+    const dto = new CreateUserDto();
+    dto.first_name = 'John';
+    dto.last_name = 'Doe';
+    dto.email = 'john.doe@example.com';
+    dto.avatar = 'http://example.com/avatar.jpg';
+    dto.external_id = 1;
+
+    const errors = await validate(dto);
+    expect(errors.length).toBeGreaterThan(0);
+    expect(errors[0].property).toBe('external_id');
+  });
 });
