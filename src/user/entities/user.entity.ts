@@ -6,6 +6,9 @@ export class User {
   id: number;
 
   @Column()
+  external_id: number;
+
+  @Column()
   first_name: string;
 
   @Column()
