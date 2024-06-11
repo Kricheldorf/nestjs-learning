@@ -2,7 +2,7 @@
 
 I've created this repository to learn more about [NestJS](https://github.com/nestjs/nest) and its features.
 It's a very simple CRUD API to manage users. There's a service that fetches an user list from https://reqres.in/
-and updates the DB.
+and updates the DB every hour.
 
 Some observations:
 
@@ -18,7 +18,7 @@ Things setup after scaffolding the project:
 
 TODOs:
 
-* Run UserFetcherService periodically using a queue to update user values in the database
+* Run UserFetcherService using a queue
 * Add more features to the API for practice
 
 ## DB setup

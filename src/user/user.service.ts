@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -35,6 +36,7 @@ export class UserService {
     return null;
   }
 
+  @Cron(CronExpression.EVERY_HOUR)
   async updateUsersFromDomain(): Promise<void> {
     const usersList = await this.usersFetcherService.fetchAllUsers();
 
